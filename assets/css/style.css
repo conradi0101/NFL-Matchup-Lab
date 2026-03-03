@@ -1,0 +1,43 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F8F9FA;
+}
+
+h1, h2, h3, h4, .navbar-brand {
+  font-weight: 700;
+}
+
+p {
+  font-weight: 400;
+}
+.navbar {
+  background-color: #0B162A !important;
+}
+
+.btn-danger {
+  background-color: #C60C30;
+  border: none;
+}
+
+
+/* Animation */
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-img-custom {
+  width: 300px;      
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}

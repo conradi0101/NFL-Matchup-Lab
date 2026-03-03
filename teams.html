@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Matchup Lab</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+</head>
+
+<body>
+
+    <!-- NavBar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">NFL Matchup Lab</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="matchup.html">Head-to-Head</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="saved.html">History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="py-5 bg-light text-center">
+        <div class="container">
+            <h1 class="fw-bold">NFL Teams</h1>
+            <p class="text-muted">
+                Select a team to explore its roster.
+            </p>
+        </div>
+    </section>
+
+    <!-- AFC Teams -->
+    <section class="py-2">
+        <div class="container">
+
+            <h2 class="fw-bold mb-4">AFC Teams</h2>
+
+            <div class="row g-4">
+
+                <!-- Baltimore Ravens -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/ravens.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Baltimore Ravens">
+                        <h5 class="fw-bold">Baltimore Ravens</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Buffalo Bills -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/bills.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Buffalo Bills">
+                        <h5 class="fw-bold">Buffalo Bills</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Cincinnati Bengals -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/bengals.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Cincinnati Bengals">
+                        <h5 class="fw-bold">Cincinnati Bengals</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Cleveland Browns -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/browns.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Cleveland Browns">
+                        <h5 class="fw-bold">Cleveland Browns</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Denver Broncos -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/broncos.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Denver Broncos">
+                        <h5 class="fw-bold">Denver Broncos</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Houston Texans -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/texans.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Houston Texans">
+                        <h5 class="fw-bold">Houston Texans</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Indianapolis Colts -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/colts.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Indianapolis Colts">
+                        <h5 class="fw-bold">Indianapolis Colts</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Jacksonville Jaguars -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/jaguars.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Jacksonville Jaguars">
+                        <h5 class="fw-bold">Jacksonville Jaguars</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Kansas City Chiefs -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/chiefs.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Kansas City Chiefs">
+                        <h5 class="fw-bold">Kansas City Chiefs</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Las Vegas Raiders -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/raiders.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Las Vegas Raiders">
+                        <h5 class="fw-bold">Las Vegas Raiders</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Los Angeles Chargers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/chargers.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Los Angeles Chargers">
+                        <h5 class="fw-bold">Los Angeles Chargers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Miami Dolphins -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/dolphins.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Miami Dolphins">
+                        <h5 class="fw-bold">Miami Dolphins</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- New England Patriots -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/patriots.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="New England Patriots">
+                        <h5 class="fw-bold">New England Patriots</h5>
+                        <a href="#" class="btn btn-dark mt-3">View team</a>
+                    </div>
+                </div>
+
+                <!-- New York Jets -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/jets.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="New York Jets">
+                        <h5 class="fw-bold">New York Jets</h5>
+                        <a href="#" class="btn btn-dark mt-3">View team</a>
+                    </div>
+                </div>
+
+                <!-- Pittsburgh Steelers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/steelers.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Pittsburgh Steelers">
+                        <h5 class="fw-bold">Pittsburgh Steelers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View team</a>
+                    </div>
+                </div>
+
+                <!-- Tennessee Titans -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/titans.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Tennessee Titans">
+                        <h5 class="fw-bold">Tennessee Titans</h5>
+                        <a href="#" class="btn btn-dark mt-3">View team</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NFC Teams -->
+    <section class="py-5 bg-light">
+        <div class="container">
+
+            <h2 class="fw-bold mb-4">NFC Teams</h2>
+
+            <div class="row g-4">
+
+                <!-- Arizona Cardinals -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/cardinals.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Arizona Cardinals Logo">
+                        <h5 class="fw-bold">Arizona Cardinals</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Atlanta Falcons -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/falcons.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Atlanta Falcons Logo">
+                        <h5 class="fw-bold">Atlanta Falcons</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Carolina Panthers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/panthers.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Carolina Panthers Logo">
+                        <h5 class="fw-bold">Carolina Panthers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Chicago Bears -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/bears.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Chicago Bears Logo">
+                        <h5 class="fw-bold">Chicago Bears</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Dallas Cowboys -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/cowboys.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Dallas Cowboys Logo">
+                        <h5 class="fw-bold">Dallas Cowboys</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Detroit Lions -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/lions.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Detroit Lions Logo">
+                        <h5 class="fw-bold">Detroit Lions</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Green Bay Packers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/packers.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Green Bay Packers Logo">
+                        <h5 class="fw-bold">Green Bay Packers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Los Angeles Rams -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/rams.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Los Angeles Rams Logo">
+                        <h5 class="fw-bold">Los Angeles Rams</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Minnesota Vikings -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/vikings.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Minnesota Vikings Logo">
+                        <h5 class="fw-bold">Minnesota Vikings</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- New Orleans Saints -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/saints.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="New Orleans Saints Logo">
+                        <h5 class="fw-bold">New Orleans Saints</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- New York Giants -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/giants.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="New York Giants Logo">
+                        <h5 class="fw-bold">New York Giants</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Philadelphia Eagles -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/eagles.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Philadelphia Eagles Logo">
+                        <h5 class="fw-bold">Philadelphia Eagles</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- San Francisco 49ers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/49s.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="San Francisco 49ers Logo">
+                        <h5 class="fw-bold">San Francisco 49ers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Seattle Seahawks -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/seahawks.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Seattle Seahawks Logo">
+                        <h5 class="fw-bold">Seattle Seahawks</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Tampa Bay Buccaneers -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/buccaneers.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Tampa Bay Buccaneers Logo">
+                        <h5 class="fw-bold">Tampa Bay Buccaneers</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+                <!-- Washington Commanders -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 text-center p-3">
+                        <img src="assets/img/logos/commanders.gif" class="img-fluid mx-auto d-block mb-3"
+                            style="max-height: 120px;" alt="Washington Commanders Logo">
+                        <h5 class="fw-bold">Washington Commanders</h5>
+                        <a href="#" class="btn btn-dark mt-3">View Team</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-md-6 text-center text-md-start">
+                    <h5 class="fw-bold mb-1">NFL Matchup Lab</h5>
+                    <p class="mb-3 text-light ">A project to compare real NFL teams and build head-to-head matchups.</p>
+                </div>
+
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="teams.html" class="text-white me-3 text-decoration-none">Teams</a>
+                    <a href="matchup.html" class="text-white me-3 text-decoration-none">Matchup</a>
+                    <a href="saved.html" class="text-white me-3 text-decoration-none">History</a>
+                </div>
+
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="text-center text-light small">
+                © 2026 NFL Matchup Lab — Built for learning and portfolio purposes.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Animation Section -->
+    <script src="assets/js/animation.js"></script>
+
+    <!-- Hero JS -->
+    <script src="assets/js/hero.js"></script>
+
+</body>
+
+</html>

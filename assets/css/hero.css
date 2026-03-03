@@ -1,0 +1,28 @@
+.hero-section {
+  height: 95vh;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../images/hero1.jpg");
+  position: relative;
+  transition: background-image 0.8s ease-in-out;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.fade-element {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
