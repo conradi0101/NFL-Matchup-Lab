@@ -1,0 +1,317 @@
+/* ===== FIELD ===== */
+
+.football-field {
+    position: relative;
+    width: 1000px;
+    height: 650px;
+    margin: auto;
+
+    background-image: url("../img/field/field-horizontal.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 10px;
+}
+
+
+/* ===== PLAYER POSITION BUTTON ====== */
+
+.position-slot {
+    position: absolute;
+
+    width: 58px;
+    height: 58px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    overflow: hidden;
+    
+    transform: translate(-50%, -50%);
+}
+
+.filled-slot {
+    background: transparent;
+    border: none;
+}
+
+.slot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.position-slot:hover {
+    background: #f1f1f1;
+}
+
+/* ===== OFFENSE POSITIONS ===== */
+.qb {
+    left: 36%;
+    top: 50%;
+}
+
+.rb {
+    left: 29%;
+    top: 50%;
+}
+
+.c {
+    left: 45%;
+    top: 50%;
+}
+
+.g1 {
+    left: 44%;
+    top: 40%;
+}
+
+.g2 {
+    left: 44%;
+    top: 60%;
+}
+
+.ot1 {
+    left: 43%;
+    top: 30%;
+}
+
+.ot2 {
+    left: 43%;
+    top: 70%;
+}
+
+.wr1 {
+    left: 41%;
+    top: 18%;
+}
+
+.wr2 {
+    left: 41%;
+    top: 82%;
+}
+
+.wr3 {
+    left: 36%;
+    top: 30%;
+}
+
+.te {
+    left: 36%;
+    top: 70%;
+}
+
+.pk {
+    left: 8%;
+    top: 78%;
+}
+
+/* ===== DEFENSE POSITIONS ===== */
+
+.dt1 {
+    left: 54.7%;
+    top: 55%;
+}
+
+.dt2 {
+    left: 54.7%;
+    top: 45%;
+}
+
+.de1 {
+    left: 55.7%;
+    top: 65%;
+}
+
+.de2 {
+    left: 55.7%;
+    top: 35%;
+}
+
+.lb1 {
+    left: 63.7%;
+    top: 50%;
+}
+
+.lb2 {
+    left: 63.7%;
+    top: 30%;
+}
+
+.lb3 {
+    left: 63.7%;
+    top: 70%;
+}
+
+.cb1 {
+    left: 71%;
+    top: 18%;
+}
+
+.cb2 {
+    left: 71%;
+    top: 82%;
+}
+
+.ss1 {
+    left: 78.4%;
+    top: 55%;
+}
+
+.ss2 {
+    left: 78.4%;
+    top: 45%;
+}
+
+
+
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 768px) {
+
+    .football-field {
+        width: 100%;
+        height: 700px;
+
+        background-image: url("../img/field/field-vertical.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+
+
+    }
+
+    .position-slot {
+        position: absolute;
+        width: 46px;
+        height: 46px;
+        font-size: 9px;
+    }
+
+    .qb {
+        left: 50%;
+        top: 35.6%;
+    }
+
+    .rb {
+        left: 50%;
+        top: 27%;
+    }
+
+    .c {
+        left: 50%;
+        top: 45.2%;
+    }
+
+    .g1 {
+        left: 40%;
+        top: 44.2%;
+    }
+
+    .g2 {
+        left: 60%;
+        top: 44.2%;
+    }
+
+    .ot1 {
+        left: 30%;
+        top: 43.2%;
+    }
+
+    .ot2 {
+        left: 70%;
+        top: 43.2%;
+    }
+
+    .wr1 {
+        left: 20%;
+        top: 41.2%;
+    }
+
+    .wr2 {
+        left: 80%;
+        top: 41.2%;
+    }
+
+    .wr3 {
+        left: 30%;
+        top: 36%;
+    }
+
+    .te {
+        left: 70%;
+        top: 36%;
+    }
+
+    .pk {
+        left: 25%;
+        top: 8%;
+    }
+
+    /* ===== DEFENSE POSITIONS ===== */
+
+    .dt1 {
+        left: 45%;
+        top: 54.4%;
+    }
+
+    .dt2 {
+        left: 55%;
+        top: 54.4%;
+    }
+
+    .de1 {
+        left: 35%;
+        top: 55.4%;
+    }
+
+    .de2 {
+        left: 65%;
+        top: 55.4%;
+    }
+
+    .lb1 {
+        left: 50%;
+        top: 64%;
+    }
+
+    .lb2 {
+        left: 65%;
+        top: 64%;
+    }
+
+    .lb3 {
+        left: 35%;
+        top: 64%;
+    }
+
+    .cb1 {
+        left: 80%;
+        top: 70%;
+    }
+
+    .cb2 {
+        left: 20%;
+        top: 70%;
+    }
+
+    .ss1 {
+        left: 45%;
+        top: 78%;
+    }
+
+    .ss2 {
+        left: 55%;
+        top: 78%;
+    }
+
+}
