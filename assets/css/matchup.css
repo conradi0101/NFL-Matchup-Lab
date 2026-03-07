@@ -4,7 +4,7 @@
     position: relative;
     width: 1000px;
     height: 650px;
-    margin: auto;
+    margin: 0 auto;
 
     background-image: url("../img/field/field-horizontal.png");
     background-size: contain;
@@ -16,6 +16,9 @@
 
 
 /* ===== PLAYER POSITION BUTTON ====== */
+.player-token {
+    pointer-events: none;
+}
 
 .position-slot {
     position: absolute;
@@ -33,13 +36,14 @@
     cursor: pointer;
 
     overflow: hidden;
-    
-    transform: translate(-50%, -50%);
+    /* overflow: visible; */
+
+    /* transform: translate(-50%, -50%); */
 }
 
 .filled-slot {
-    background: transparent;
-    border: none;
+    background: white;
+    border: 2px solid black;
 }
 
 .slot-image {
@@ -50,125 +54,137 @@
 }
 
 .position-slot:hover {
-    background: #f1f1f1;
+    filter: brightness(0.95);
+}
+
+/* ===== SWICH ====== */
+/* Slot com modo verde */
+.slot-green {
+    background-color: #90ee90;
+    border: 2px solid #4caf50;
+    color: rgb(0, 0, 0);
+}
+
+.position-slot.slot-green {
+    background-color: #90ee90 !important;
 }
 
 /* ===== OFFENSE POSITIONS ===== */
 .qb {
-    left: 36%;
-    top: 50%;
+    left: 30%;
+    top: 45%;
 }
 
 .rb {
-    left: 29%;
-    top: 50%;
+    left: 23%;
+    top: 45%;
 }
 
 .c {
-    left: 45%;
-    top: 50%;
+    left: 42.5%;
+    top: 45%;
 }
 
 .g1 {
-    left: 44%;
-    top: 40%;
+    left: 41.5%;
+    top: 35%;
 }
 
 .g2 {
-    left: 44%;
-    top: 60%;
+    left: 41.5%;
+    top: 55%;
 }
 
 .ot1 {
-    left: 43%;
-    top: 30%;
+    left: 39.5%;
+    top: 25%;
 }
 
 .ot2 {
-    left: 43%;
-    top: 70%;
+    left: 39.5%;
+    top: 65%;
 }
 
 .wr1 {
-    left: 41%;
-    top: 18%;
+    left: 39.5%;
+    top: 15%;
 }
 
 .wr2 {
-    left: 41%;
-    top: 82%;
+    left: 39.5%;
+    top: 75.5%;
 }
 
 .wr3 {
-    left: 36%;
+    left: 34%;
     top: 30%;
 }
 
 .te {
-    left: 36%;
-    top: 70%;
+    left: 34%;
+    top: 60%;
 }
 
 .pk {
-    left: 8%;
-    top: 78%;
+    left: 5%;
+    top: 75%;
 }
 
 /* ===== DEFENSE POSITIONS ===== */
 
 .dt1 {
     left: 54.7%;
-    top: 55%;
+    top: 50%;
 }
 
 .dt2 {
     left: 54.7%;
-    top: 45%;
+    top: 40%;
 }
 
 .de1 {
     left: 55.7%;
-    top: 65%;
+    top: 60%;
 }
 
 .de2 {
     left: 55.7%;
-    top: 35%;
+    top: 30%;
 }
 
 .lb1 {
     left: 63.7%;
-    top: 50%;
+    top: 25%;
 }
 
 .lb2 {
     left: 63.7%;
-    top: 30%;
+    top: 45%;
 }
 
 .lb3 {
     left: 63.7%;
-    top: 70%;
+    top: 65%;
 }
 
 .cb1 {
     left: 71%;
-    top: 18%;
+    top: 15%;
 }
 
 .cb2 {
     left: 71%;
-    top: 82%;
+    top: 75.5%;
 }
 
 .ss1 {
     left: 78.4%;
-    top: 55%;
+    top: 50%;
 }
 
 .ss2 {
     left: 78.4%;
-    top: 45%;
+    top: 40%;
 }
 
 
@@ -253,7 +269,7 @@
     }
 
     .pk {
-        left: 25%;
+        left: 17%;
         top: 8%;
     }
 

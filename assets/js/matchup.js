@@ -2,6 +2,12 @@
 // MATCHUP SYSTEM
 // ===============================
 
+
+const isEditMode =
+    window.location.search.includes("edit") &&
+    localStorage.getItem("editMatchupId");
+
+
 // Bootstrap Modal
 const playerModal = new bootstrap.Modal(
     document.getElementById("playerModal")
@@ -9,6 +15,12 @@ const playerModal = new bootstrap.Modal(
 
 // Dados
 let teamsData = [];
+
+// Field Mode
+const originalPositions = {};
+let freePositions = {};
+let fieldMode = "fixed";
+let showPlayerImages = true;
 
 // Estado do jogo
 const gameState = {
@@ -20,6 +32,20 @@ const gameState = {
 // Elementos
 const teamASelect = document.getElementById("teamA");
 const teamBSelect = document.getElementById("teamB");
+const fieldModeSelect = document.getElementById("fieldMode");
+
+fieldModeSelect.addEventListener("change", (e) => {
+    fieldMode = e.target.value;
+
+    if (fieldMode === "fixed") {
+        resetFieldPositions();
+    }
+
+    if (fieldMode === "free") {
+        applyFreePositions();
+    }
+
+});
 
 
 // ===============================
@@ -31,6 +57,14 @@ fetch("assets/data/teams.json")
     .then(data => {
         teamsData = data;
         populateTeams();
+
+        // Edit Mode
+        const editMatchupId = localStorage.getItem("editMatchupId");
+
+        if (editMatchupId) {
+            loadMatchupForEdit(editMatchupId);
+        }
+
     });
 
 
@@ -52,6 +86,7 @@ function populateTeams() {
         teamBSelect.appendChild(optionB);
     });
 }
+
 
 
 // ===============================
@@ -125,13 +160,16 @@ document.querySelectorAll(".position-slot").forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const position = button.dataset.position;
-        const slot = button.dataset.slot; // 🔥 ESSENCIAL
-
-        if (!gameState.teamA || !gameState.teamB) {
-            showTopMessage("Please select both teams first!");
+        if (hasMoved) {
+            hasMoved = false;
             return;
         }
+        if (!gameState.teamA || !gameState.teamB) {
+            return;
+        }
+
+        const position = button.dataset.position;
+        const slot = button.dataset.slot;
 
         openPlayerModal(position, slot);
     });
@@ -243,7 +281,7 @@ function selectPlayer(slot, player) {
     playerModal.hide();
 
     // - FIELD
-    updateField(slot, player);
+    updateAllSlots();
 
     // - ROSTER
     updateRoster();
@@ -261,7 +299,8 @@ function updateField(slot, player) {
     if (!button) return;
 
     button.innerHTML = `
-        <img src="${player.photo}" class="slot-image">
+        <img src="${player.photo}" 
+            class="slot-image player-token">
     `;
 
     button.classList.add("filled-slot");
@@ -386,14 +425,341 @@ function clearMatchup() {
     // Reset selected players
     gameState.selectedPlayers = {};
 
-    // Clear field buttons
-    document.querySelectorAll(".position-slot").forEach(button => {
-        button.innerHTML = button.dataset.position;
-        button.style.background = "white";
-        button.style.border = "2px solid black";
-    });
+    // Reset toggle
+    showPlayerImages = true;
 
     // Clear roster and stats
     document.getElementById("roster").innerHTML = "";
     document.getElementById("stats").innerHTML = "";
+
+    // Atualiza todos os slots corretamente
+    updateAllSlots();
+}
+
+
+// ===============================
+// SAVE ORIGINAL FIELD POSITIONS
+// ===============================
+
+document.querySelectorAll(".position-slot").forEach(slot => {
+
+    const id = slot.dataset.slot;
+
+    originalPositions[id] = {
+        top: slot.style.top,
+        left: slot.style.left
+    };
+
+});
+
+// ===============================
+// RESET FIELD POSITION
+// ===============================
+function resetFieldPositions() {
+
+    document.querySelectorAll(".position-slot").forEach(slot => {
+
+        slot.style.left = "";
+        slot.style.top = "";
+        slot.style.position = "";
+    });
+
+}
+
+// ===============================
+// DRAG SYSTEM
+// ===============================
+let activeSlot = null;
+let offsetX = 0;
+let offsetY = 0;
+let startX = 0;
+let startY = 0;
+let hasMoved = false;
+
+const field = document.getElementById("field");
+
+document.addEventListener("pointerdown", (e) => {
+
+    if (fieldMode !== "free") return;
+
+    const slot = e.target.closest(".position-slot");
+    if (!slot) return;
+
+    activeSlot = slot;
+    hasMoved = false;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    const rect = slot.getBoundingClientRect();
+
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    slot.setPointerCapture(e.pointerId);
+});
+
+document.addEventListener("pointermove", (e) => {
+
+    if (fieldMode !== "free") return;
+    if (!activeSlot) return;
+
+    const moveDistance = Math.sqrt(
+        Math.pow(e.clientX - startX, 2) +
+        Math.pow(e.clientY - startY, 2)
+    );
+
+    if (moveDistance > 5) {
+        hasMoved = true;
+    }
+
+    const fieldRect = field.getBoundingClientRect();
+
+    let x = e.clientX - fieldRect.left - offsetX;
+    let y = e.clientY - fieldRect.top - offsetY;
+
+    activeSlot.style.position = "absolute";
+    activeSlot.style.left = x + "px";
+    activeSlot.style.top = y + "px";
+});
+
+document.addEventListener("pointerup", (e) => {
+
+    if (!activeSlot) return;
+
+    if (activeSlot.hasPointerCapture(e.pointerId)) {
+        activeSlot.releasePointerCapture(e.pointerId);
+    }
+
+    if (fieldMode === "free") {
+        const slotId = activeSlot.dataset.slot;
+
+        freePositions[slotId] = {
+            x: parseInt(activeSlot.style.left) || 0,
+            y: parseInt(activeSlot.style.top) || 0
+        };
+
+        const player = gameState.selectedPlayers[slotId];
+        if (player) {
+            player.x = parseInt(activeSlot.style.left) || 0;
+            player.y = parseInt(activeSlot.style.top) || 0;
+        }
+    }
+    activeSlot = null;
+});
+
+document.addEventListener("pointercancel", () => {
+    activeSlot = null;
+});
+
+
+// ===============================
+// SWITCH BUTTOM
+// ===============================
+
+const toggleButton = document.getElementById("toggleView");
+
+toggleButton.addEventListener("click", () => {
+
+    showPlayerImages = !showPlayerImages;
+
+    updateAllSlots();
+});
+
+function updateAllSlots() {
+
+    document.querySelectorAll(".position-slot").forEach(slot => {
+
+        const slotId = slot.dataset.slot;
+        const player = gameState.selectedPlayers[slotId];
+
+        slot.classList.remove("slot-green", "filled-slot");
+
+        if (player) {
+
+            if (showPlayerImages) {
+
+                slot.innerHTML = `<img src="${player.photo}" class="slot-image player-token">`;
+                slot.classList.add("filled-slot");
+
+                // Se Free Mode, aplica posição salva
+                // if (fieldMode === "free" && player.x !== undefined && player.y !== undefined) {
+                //     slot.style.position = "absolute";
+                //     slot.style.left = player.x + "px";
+                //     slot.style.top = player.y + "px";
+                // } else {
+                //     slot.style.position = "";
+                //     slot.style.left = "";
+                //     slot.style.top = "";
+                // }
+
+            } else {
+                // GREEN
+                slot.innerHTML = slot.dataset.position;
+                slot.classList.add("slot-green");
+            }
+
+        } else {
+            // SLOT VAZIO
+            slot.innerHTML = slot.dataset.position;
+            slot.style.position = "";
+            // slot.style.left = "";
+            // slot.style.top = "";
+        }
+    });
+}
+
+function applyFreePositions() {
+
+    if (fieldMode !== "free") return;
+
+    document.querySelectorAll(".position-slot").forEach(slot => {
+
+        const slotId = slot.dataset.slot;
+        const player = gameState.selectedPlayers[slotId];
+
+        if (player && player.x !== undefined && player.y !== undefined) {
+            slot.style.position = "absolute";
+            slot.style.left = player.x + "px";
+            slot.style.top = player.y + "px";
+        }
+
+    });
+}
+
+// ===============================
+// SAVE
+// ===============================
+const saveButton = document.getElementById("saveMatchup");
+
+saveButton.addEventListener("click", saveMatchup);
+
+function saveMatchup() {
+
+    if (!gameState.teamA || !gameState.teamB) {
+        showTopMessage("Select both teams first.");
+        return;
+    }
+
+    const matchups =
+        JSON.parse(localStorage.getItem("nflMatchups")) || [];
+
+    const editId = localStorage.getItem("editMatchupId");
+
+    if (editId) {
+
+        const index = matchups.findIndex(m => m.id == Number(editId));
+
+        if (index !== -1) {
+
+            matchups[index] = {
+                ...matchups[index],
+                teamA: gameState.teamA.name,
+                teamB: gameState.teamB.name,
+                players: gameState.selectedPlayers,
+                fieldMode: fieldMode,
+                freePositions: freePositions,
+                updatedAt: new Date().toLocaleString()
+            };
+
+        }
+
+        localStorage.removeItem("editMatchupId");
+
+        showTopMessage("Matchup updated!");
+
+    } else {
+
+        const newMatchup = {
+            id: Date.now(),
+            teamA: gameState.teamA.name,
+            teamB: gameState.teamB.name,
+            players: gameState.selectedPlayers,
+            fieldMode: fieldMode,
+            freePositions: freePositions,
+            createdAt: new Date().toLocaleString()
+        };
+
+        matchups.push(newMatchup);
+
+        showTopMessage("Matchup saved!");
+    }
+
+    localStorage.setItem("nflMatchups", JSON.stringify(matchups));
+
+    // 🔥 IMPORTANTE: voltar para history
+    window.location.href = "saved.html";
+}
+
+
+
+// =======================
+// EDIT MODE
+// =======================
+
+function loadMatchupForEdit(id) {
+
+    const matchups =
+        JSON.parse(localStorage.getItem("nflMatchups")) || [];
+
+    const matchup = matchups.find(m => m.id == id);
+
+    if (!matchup) return;
+
+    // Restaurar times
+    gameState.teamA = teamsData.find(t => t.name === matchup.teamA);
+    gameState.teamB = teamsData.find(t => t.name === matchup.teamB);
+
+    if (!gameState.teamA || !gameState.teamB) return;
+
+    // Atualizar selects
+    teamASelect.value = gameState.teamA.id;
+    teamBSelect.value = gameState.teamB.id;
+
+    // Bloquear alteração
+    teamASelect.disabled = true;
+    teamBSelect.disabled = true;
+
+    // Restaurar jogadores
+    gameState.selectedPlayers = { ...matchup.players };
+
+
+
+    // Restaurar fieldMode se quiser manter o modo salvo
+    if (matchup.fieldMode) {
+        fieldMode = matchup.fieldMode;
+        fieldModeSelect.value = matchup.fieldMode;
+    }
+
+    // 🔥 Restaurar posições livres
+    if (matchup.freePositions) {
+        freePositions = { ...matchup.freePositions };
+    }
+
+    // Atualizar interface
+    updateAllSlots();
+    updateRoster();
+    updateStats();
+
+    if (fieldMode === "free") {
+        applyFreePositions();
+    }
+}
+
+
+// DELETE
+function deleteMatchup(id) {
+
+    if (!confirm("Are you sure you want to delete this matchup?")) {
+        return;
+    }
+
+    let matchups =
+        JSON.parse(localStorage.getItem("nflMatchups")) || [];
+
+    matchups = matchups.filter(m => m.id !== Number(id));
+
+    localStorage.setItem("nflMatchups", JSON.stringify(matchups));
+
+    loadMatchups();
 }
