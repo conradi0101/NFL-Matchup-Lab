@@ -24,7 +24,7 @@
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">NFL Matchup Lab</a>
+            <a class="navbar-brand fw-bold edit-nav-link" href="index.html">NFL Matchup Lab</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="teams.html">Teams</a>
+                        <a class="nav-link edit-nav-link" href="teams.html">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="matchup.html">Head-to-Head</a>
+                        <a class="nav-link edit-nav-link" href="matchup.html">Head-to-Head</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="saved.html">History</a>
+                        <a class="nav-link edit-nav-link" href="saved.html">History</a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +49,7 @@
     <!-- Main (Head - to - Head) -->
 
     <section class="container py-5">
-        <button id="saveMatchup" class="btn btn-primary">Save Matchup</button>
+        <button id="saveMatchup" class="btn btn-primary edit-save-btn">Save Matchup</button>
 
         <h2 class="text-center mb-4">Build Your Matchup</h2>
 
@@ -132,13 +132,9 @@
         </div>
 
         <!-- ROSTER -->
-        <div id="roster" class="mt-5">
-            <h1>ROSTER</h1>
-        </div>
+        <div id="roster" class="mt-5"></div>
         <!-- STATUS -->
-        <div id="stats" class="mt-5">
-            <h1>Status</h1>
-        </div>
+        <div id="stats" class="mt-5"></div>
 
     </section>
 
@@ -153,9 +149,9 @@
                 </div>
 
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="teams.html" class="text-white me-3 text-decoration-none">Teams</a>
-                    <a href="matchup.html" class="text-white me-3 text-decoration-none">Matchup</a>
-                    <a href="saved.html" class="text-white me-3 text-decoration-none">History</a>
+                    <a href="teams.html" class="text-white me-3 text-decoration-none edit-nav-link">Teams</a>
+                    <a href="matchup.html" class="text-white me-3 text-decoration-none edit-nav-link">Matchup</a>
+                    <a href="saved.html" class="text-white me-3 text-decoration-none edit-nav-link">History</a>
                 </div>
 
             </div>
@@ -184,6 +180,25 @@
 
             </div>
         </div>
+    </div>
+
+    <div id="editExitModal" class="edit-exit-modal hidden">
+
+        <div class="modal-box">
+
+            <h3>Save changes?</h3>
+            <p>You are editing a matchup.</p>
+
+            <div class="modal-actions">
+
+                <button id="modalSave">Save</button>
+                <button id="modalDiscard">Discard</button>
+                <button id="modalCancel">Cancel</button>
+
+            </div>
+
+        </div>
+
     </div>
 
     <!-- Bootstrap JS -->

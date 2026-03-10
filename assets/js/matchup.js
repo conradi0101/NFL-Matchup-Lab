@@ -2,10 +2,118 @@
 // MATCHUP SYSTEM
 // ===============================
 
+// ===============================
+// EDIT MODE
+// ===============================
+
+const urlParams = new URLSearchParams(window.location.search);
 
 const isEditMode =
-    window.location.search.includes("edit") &&
+    urlParams.get("edit") === "true" &&
     localStorage.getItem("editMatchupId");
+
+let pendingNavigation = null;
+
+document.querySelectorAll(".edit-nav-link").forEach(link => {
+
+    link.addEventListener("click", function (e) {
+
+        if (!isEditMode) return;
+
+        e.preventDefault();
+
+        pendingNavigation = this.href;
+
+        openEditExitModal();
+
+    });
+
+});
+
+function openEditExitModal() {
+
+    document
+        .getElementById("editExitModal")
+        .classList.remove("hidden");
+
+}
+
+const modalSave = document.getElementById("modalSave");
+const modalDiscard = document.getElementById("modalDiscard");
+const modalCancel = document.getElementById("modalCancel");
+
+if (modalSave) {
+    modalSave.addEventListener("click", () => {
+
+        if (pendingNavigation === "saveMatchup") {
+            saveMatchup("saved"); // save
+
+            pendingNavigation = null;
+            document.getElementById("editExitModal").classList.add("hidden");
+            return;
+        }
+
+        // Se for um link normal
+        if (pendingNavigation) {
+            window.location.href = pendingNavigation;
+        }
+
+    });
+}
+
+if (modalDiscard) {
+    modalDiscard.addEventListener("click", () => {
+
+        localStorage.removeItem("editMatchupId");
+        freePositions = {};
+
+        if (pendingNavigation === "saveMatchup") {
+            localStorage.removeItem("editMatchupId");
+            freePositions = {};
+            pendingNavigation = null;
+            document.getElementById("editExitModal").classList.add("hidden");
+            window.location.href = "saved.html";
+            return;
+        }
+
+        if (pendingNavigation) {
+            window.location.href = pendingNavigation;
+        }
+
+    });
+};
+
+if (modalCancel) {
+    modalCancel.addEventListener("click", () => {
+
+        document
+            .getElementById("editExitModal")
+            .classList.add("hidden");
+
+        pendingNavigation = null;
+
+    });
+}
+
+const saveMatchupBtn = document.querySelector(".edit-save-btn");
+
+if (saveMatchupBtn) {
+    saveMatchupBtn.addEventListener("click", function (e) {
+
+        if (!isEditMode) {
+            saveMatchup();
+            return;
+        }
+
+        e.preventDefault();
+
+        pendingNavigation = "saveMatchup";
+
+        openEditExitModal();
+    });
+}
+
+
 
 
 // Bootstrap Modal
@@ -34,18 +142,21 @@ const teamASelect = document.getElementById("teamA");
 const teamBSelect = document.getElementById("teamB");
 const fieldModeSelect = document.getElementById("fieldMode");
 
-fieldModeSelect.addEventListener("change", (e) => {
-    fieldMode = e.target.value;
+if (fieldModeSelect) {
+    fieldModeSelect.addEventListener("change", (e) => {
 
-    if (fieldMode === "fixed") {
-        resetFieldPositions();
-    }
+        fieldMode = e.target.value;
 
-    if (fieldMode === "free") {
-        applyFreePositions();
-    }
+        if (fieldMode === "fixed") {
+            resetFieldPositions();
+        }
 
-});
+        if (fieldMode === "free") {
+            applyFreePositions();
+        }
+
+    });
+}
 
 
 // ===============================
@@ -312,6 +423,11 @@ function updateRoster() {
     const rosterDiv = document.getElementById("roster");
     rosterDiv.innerHTML = "";
 
+    const title = document.createElement("h2");
+    title.textContent = "Your Roster";
+    title.classList.add("mb-3", "text-center");
+    rosterDiv.appendChild(title);
+
     const players = Object.values(gameState.selectedPlayers);
 
     if (players.length === 0) {
@@ -384,12 +500,21 @@ function updateStats() {
     let totalHeight = 0;
     let totalWeight = 0;
 
+    // Team Count
+    const teamCounts = {};
+    if (gameState.teamA) teamCounts[gameState.teamA.name] = 0;
+    if (gameState.teamB) teamCounts[gameState.teamB.name] = 0;
+
     players.forEach(player => {
 
         totalAge += calculateAge(player.birthDate);
         totalExp += calculateExperience(player.draftYear);
         totalHeight += player.height;
         totalWeight += player.weight;
+
+        if (teamCounts[player.team] !== undefined) {
+            teamCounts[player.team] += 1;
+        }
 
     });
 
@@ -402,6 +527,10 @@ function updateStats() {
     );
     const avgWeight = Math.round(totalWeight / count);
 
+    const teamText = Object.entries(teamCounts)
+        .map(([team, num]) => `${team}: (${num})`)
+        .join(" & ");
+
     statsDiv.innerHTML = `
         <div class="card shadow-sm p-4">
 
@@ -409,7 +538,7 @@ function updateStats() {
                 Team Statistics
             </h4>
 
-            <p><strong>Players Selected:</strong> ${count}</p>
+            <p><strong>Players Selected:</strong> ${count} (${teamText})</p>
             <p><strong>Average Age:</strong> ${avgAge}</p>
             <p><strong>Average Experience:</strong> ${avgExp} yrs</p>
             <p><strong>Average Height:</strong> ${avgHeight}</p>
@@ -630,11 +759,11 @@ function applyFreePositions() {
 // ===============================
 // SAVE
 // ===============================
-const saveButton = document.getElementById("saveMatchup");
+// const saveButton = document.getElementById("saveMatchup");
 
-saveButton.addEventListener("click", saveMatchup);
+// saveButton.addEventListener("click", saveMatchup);
 
-function saveMatchup() {
+function saveMatchup(redirect = "saved") {
 
     if (!gameState.teamA || !gameState.teamB) {
         showTopMessage("Select both teams first.");
@@ -687,8 +816,12 @@ function saveMatchup() {
 
     localStorage.setItem("nflMatchups", JSON.stringify(matchups));
 
-    // 🔥 IMPORTANTE: voltar para history
-    window.location.href = "saved.html";
+    // IMPORTANT
+    if (redirect === "saved") {
+        window.location.href = "saved.html";
+    } else {
+        window.location.href = "matchup.html";
+    }
 }
 
 
