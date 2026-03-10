@@ -598,14 +598,13 @@ function resetFieldPositions() {
 // ===============================
 // DRAG SYSTEM
 // ===============================
+const field = document.getElementById("field");
 let activeSlot = null;
 let offsetX = 0;
 let offsetY = 0;
 let startX = 0;
 let startY = 0;
 let hasMoved = false;
-
-const field = document.getElementById("field");
 
 document.addEventListener("pointerdown", (e) => {
 
@@ -621,44 +620,49 @@ document.addEventListener("pointerdown", (e) => {
     startY = e.clientY;
 
     const rect = slot.getBoundingClientRect();
-
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
 
     slot.setPointerCapture(e.pointerId);
-});
+
+    document.body.classList.add("dragging");
+
+    // ⚠️ impede scroll no mobile
+    e.preventDefault();
+
+}, { passive: false }); // importante
 
 document.addEventListener("pointermove", (e) => {
 
-    if (fieldMode !== "free") return;
-    if (!activeSlot) return;
+    if (fieldMode !== "free" || !activeSlot) return;
+
+    e.preventDefault(); // trava scroll
 
     const moveDistance = Math.sqrt(
         Math.pow(e.clientX - startX, 2) +
         Math.pow(e.clientY - startY, 2)
     );
 
-    if (moveDistance > 5) {
-        hasMoved = true;
-    }
+    if (moveDistance > 5) hasMoved = true;
 
     const fieldRect = field.getBoundingClientRect();
-
     let x = e.clientX - fieldRect.left - offsetX;
     let y = e.clientY - fieldRect.top - offsetY;
 
     activeSlot.style.position = "absolute";
     activeSlot.style.left = x + "px";
     activeSlot.style.top = y + "px";
-});
+
+}, { passive: false }); // importante
 
 document.addEventListener("pointerup", (e) => {
-
     if (!activeSlot) return;
 
     if (activeSlot.hasPointerCapture(e.pointerId)) {
         activeSlot.releasePointerCapture(e.pointerId);
     }
+
+    document.body.classList.remove("dragging");
 
     if (fieldMode === "free") {
         const slotId = activeSlot.dataset.slot;
@@ -674,9 +678,12 @@ document.addEventListener("pointerup", (e) => {
             player.y = parseInt(activeSlot.style.top) || 0;
         }
     }
+
     activeSlot = null;
+
 });
 
+// pointercancel só reseta activeSlot, não remove a classe
 document.addEventListener("pointercancel", () => {
     activeSlot = null;
 });
