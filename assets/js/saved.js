@@ -8,13 +8,17 @@ function loadMatchups() {
     const matchups =
         JSON.parse(localStorage.getItem("nflMatchups")) || [];
 
+    container.innerHTML = "";
+
     if (matchups.length === 0) {
 
         emptyMessage.classList.remove("d-none");
+        container.classList.add("d-none");
         return;
     }
 
-    container.innerHTML = "";
+    emptyMessage.classList.add("d-none");
+    container.classList.remove("d-none");
 
     matchups.forEach(matchup => {
 
